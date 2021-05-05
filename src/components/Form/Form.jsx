@@ -20,7 +20,7 @@ class Form extends Component {
   };
   createContact = () => {
     const { name, number } = this.state;
-    const { addContact, items } = this.props;
+    const { onSubmit, items } = this.props;
 
     const sameName = items.find(
       (el) => el.name.toLowerCase() === name.toLowerCase()
@@ -28,8 +28,9 @@ class Form extends Component {
     const sameNumber = items.find((el) => el.number === number);
     if (sameName || sameNumber) {
       alert(`${name} or ${number} is already in contacts`);
-    }
-    return addContact(name, number);
+    
+    return;}
+    else {onSubmit(name, number);}
   };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -88,7 +89,7 @@ const mapStateToProps = ({ contacts }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (contact) => dispatch(addContact(contact)),
+  onSubmit: (name, number) => dispatch(addContact(name, number)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
 Form.propTypes = { onSubmit: PropTypes.func.isRequired };
